@@ -46,8 +46,11 @@ export const fetchWithRefresh = async <T>(
     if ((err as { message: string }).message === 'jwt expired') {
       const refreshData = await refreshToken();
       if (options.headers) {
-        (options.headers as { [key: string]: string }).authorization =
-          refreshData.accessToken;
+        (
+          options.headers as {
+            [key: string]: string;
+          }
+        ).authorization = refreshData.accessToken;
       }
       const res = await fetch(url, options);
       return await checkResponse<T>(res);
@@ -204,7 +207,9 @@ export const resetPasswordApi = (data: { password: string; token: string }) =>
       return Promise.reject(data);
     });
 
-type TUserResponse = TServerResponse<{ user: TUser }>;
+type TUserResponse = TServerResponse<{
+  user: TUser;
+}>;
 
 export const getUserApi = () =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {

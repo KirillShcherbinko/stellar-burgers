@@ -13,7 +13,9 @@ export function getCookie(name: string): string | undefined {
 export function setCookie(
   name: string,
   value: string,
-  props: { [key: string]: string | number | Date | boolean } = {}
+  props: {
+    [key: string]: string | number | Date | boolean;
+  } = {}
 ) {
   props = {
     path: '/',

@@ -13,7 +13,10 @@ export const ResetPassword: FC = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     setError(null);
-    resetPasswordApi({ password, token })
+    resetPasswordApi({
+      password,
+      token
+    })
       .then(() => {
         localStorage.removeItem('resetPassword');
         navigate('/login');
@@ -23,7 +26,9 @@ export const ResetPassword: FC = () => {
 
   useEffect(() => {
     if (!localStorage.getItem('resetPassword')) {
-      navigate('/forgot-password', { replace: true });
+      navigate('/forgot-password', {
+        replace: true
+      });
     }
   }, [navigate]);
 
