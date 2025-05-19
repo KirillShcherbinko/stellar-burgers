@@ -16,7 +16,8 @@ import { AppHeader } from '@components';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'src/services/store';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import { fetchIngredients } from '../../slices/ingredientsSlice';
 
 type Props = {
   children: ReactNode;
@@ -27,6 +28,10 @@ const ProtectedRoute = ({ children }: Props) => <>{children}</>;
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
