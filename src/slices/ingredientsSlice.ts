@@ -5,16 +5,18 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 type TInitialState = {
   ingredients: TIngredient[];
   isIngredientsLoading: boolean;
+  ingredientsError: string | null;
 };
 
 const initialState: TInitialState = {
   ingredients: [],
-  isIngredientsLoading: false
+  isIngredientsLoading: false,
+  ingredientsError: null
 };
 
 export const fetchIngredients = createAsyncThunk<TIngredient[]>(
   'ingredients/getAll',
-  getIngredientsApi
+  () => getIngredientsApi()
 );
 
 export const ingredientSlice = createSlice({
@@ -29,16 +31,19 @@ export const ingredientSlice = createSlice({
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.isIngredientsLoading = true;
+        state.ingredientsError = null;
       })
       .addCase(
         fetchIngredients.fulfilled,
         (state, action: PayloadAction<TIngredient[]>) => {
           state.isIngredientsLoading = false;
+          state.ingredientsError = null;
           state.ingredients = action.payload;
         }
       )
-      .addCase(fetchIngredients.rejected, (state) => {
+      .addCase(fetchIngredients.rejected, (state, action) => {
         state.isIngredientsLoading = false;
+        state.ingredientsError = action.error.message as string;
       });
   }
 });

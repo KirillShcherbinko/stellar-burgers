@@ -3,14 +3,14 @@ import { TConstructorIngredient, TIngredient } from '@utils-types';
 
 type TConstructorSlice = {
   constructorItems: {
-    bun: TConstructorIngredient | { price: 0 };
+    bun: TConstructorIngredient | null;
     ingredients: TConstructorIngredient[];
   };
 };
 
 const initialState: TConstructorSlice = {
   constructorItems: {
-    bun: { price: 0 },
+    bun: null,
     ingredients: []
   }
 };
@@ -51,6 +51,13 @@ export const burgerConstructorSlice = createSlice({
         const items = state.constructorItems.ingredients;
         [items[index], items[index - 1]] = [items[index - 1], items[index]];
       }
+    },
+
+    clearConstructor: (state) => {
+      state.constructorItems = {
+        bun: null,
+        ingredients: []
+      };
     }
   },
   selectors: {
@@ -63,7 +70,8 @@ export const {
   addIngredients,
   removeIngredient,
   moveIngredientDown,
-  moveIngredientUp
+  moveIngredientUp,
+  clearConstructor
 } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;
