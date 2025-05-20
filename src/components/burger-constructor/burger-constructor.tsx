@@ -1,22 +1,52 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useSelector } from 'react-redux';
-import { selectConstructorItems } from '../../slices/burgerConstructorSlice';
+import {
+  clearConstructor,
+  selectConstructorItems
+} from '../../slices/burgerConstructorSlice';
 import {
   selectOrderModalData,
-  selectOrderRequest
+  selectOrderRequest,
+  sendOrder,
+  setNullOrderModalData,
+  setOrderRequest
 } from '../../slices/orderSlice';
+import { useDispatch, useSelector } from '../../services/store';
+import { useNavigate } from 'react-router-dom';
+import { selectIsAuthorized } from '../../slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isAuthorized = useSelector(selectIsAuthorized);
+
   const constructorItems = useSelector(selectConstructorItems);
   const orderRequest = useSelector(selectOrderRequest);
   const orderModalData = useSelector(selectOrderModalData);
 
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
+    console.log(constructorItems.bun);
+    if (constructorItems.bun && !isAuthorized) navigate('/login');
+    if (constructorItems.bun && isAuthorized) {
+      dispatch(setOrderRequest(true));
+
+      const bunId = constructorItems.bun._id;
+      const ingredientsIds = constructorItems.ingredients.map(
+        (ingredient) => ingredient._id
+      );
+
+      const order = [bunId, ...ingredientsIds, bunId];
+      dispatch(sendOrder(order));
+    }
   };
-  const closeOrderModal = () => {};
+
+  const closeOrderModal = () => {
+    dispatch(setOrderRequest(false));
+    dispatch(setNullOrderModalData());
+    dispatch(clearConstructor());
+  };
 
   const price = useMemo(
     () =>
