@@ -1,31 +1,26 @@
-import { getFeedsApi, getOrdersApi } from "@api";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TOrder } from "@utils-types";
+import { getFeedsApi, getOrdersApi } from '@api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TOrder } from '@utils-types';
 
 type TInitialState = {
-  isFeedLoading: boolean,
-  orders: TOrder[],
-  total: number,
-  totalToday: number,
-  feedError: string | null,
-}
+  isFeedLoading: boolean;
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+  feedError: string | null;
+};
 
 const initialState: TInitialState = {
   isFeedLoading: false,
   orders: [],
   total: 0,
   totalToday: 0,
-  feedError: null,
+  feedError: null
 };
 
-const getFeed = createAsyncThunk(
-  'feed/getFeed',
-  () => getFeedsApi(),
-);
-
-const getOrders = createAsyncThunk(
-  'feed/getOrders',
-  () =>  getOrdersApi(),
+export const getFeed = createAsyncThunk('feed/getFeed', () => getFeedsApi());
+export const getOrders = createAsyncThunk('feed/getOrders', () =>
+  getOrdersApi()
 );
 
 const feedSlice = createSlice({
@@ -36,7 +31,7 @@ const feedSlice = createSlice({
     selectIsFeedLoading: (state) => state.isFeedLoading,
     selectOrders: (state) => state.orders,
     selectTotal: (state) => state.total,
-    selectTotalToday: (state) => state.totalToday,
+    selectTotalToday: (state) => state.totalToday
   },
   extraReducers: (builder) => {
     builder
@@ -52,7 +47,7 @@ const feedSlice = createSlice({
         state.isFeedLoading = false;
         state.feedError = null;
         state.orders = action.payload.orders;
-        state.total = action.payload. total;
+        state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
       })
       .addCase(getOrders.fulfilled, (state, action) => {
@@ -75,7 +70,7 @@ export const {
   selectIsFeedLoading,
   selectOrders,
   selectTotal,
-  selectTotalToday,
+  selectTotalToday
 } = feedSlice.selectors;
 
 export default feedSlice.reducer;
