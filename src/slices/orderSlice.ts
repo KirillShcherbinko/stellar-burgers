@@ -27,7 +27,7 @@ export const getOrder = createAsyncThunk('order/getOrder', (number: number) =>
   getOrderByNumberApi(number)
 );
 
-export const orderSlice = createSlice({
+const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
