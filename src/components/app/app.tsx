@@ -113,14 +113,16 @@ const App = () => {
           />
 
           <Route
-            path='profile/order/:number'
+            path='profile/orders/:number'
             element={
-              <Modal
-                title={`#${location.pathname.match(/\d+/)}`}
-                onClose={() => navigate('profile/orders')}
-              >
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute forUnAuthorized={false}>
+                <Modal
+                  title={`#${location.pathname.match(/\d+/)}`}
+                  onClose={() => navigate('/profile/orders')}
+                >
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

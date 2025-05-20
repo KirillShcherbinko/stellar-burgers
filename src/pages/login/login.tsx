@@ -12,6 +12,8 @@ import { Preloader } from '@ui';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const isUserLoading = useSelector(selectIsUserLoading);
   const userError = useSelector(selectUserError);
 
@@ -20,11 +22,12 @@ export const Login: FC = () => {
 
   useEffect(() => {
     dispatch(clearUserError());
-  }, []);
+  });
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
+    navigate('/');
   };
 
   if (isUserLoading) return <Preloader />;

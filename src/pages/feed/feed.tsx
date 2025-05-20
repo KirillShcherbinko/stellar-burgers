@@ -19,7 +19,6 @@ export const Feed: FC = () => {
 
   useEffect(() => {
     handleGetsFeeds();
-    console.log(orders);
   }, [dispatch]);
 
   if (!orders.length || isFeedLoading) {
