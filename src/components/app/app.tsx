@@ -16,7 +16,7 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'src/services/store';
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { fetchIngredients } from '../../slices/ingredientsSlice';
 import { ProtectedRoute } from '../protected-route';
 import { getUser } from '../../slices/userSlice';
@@ -42,7 +42,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute forAuthorized>
+            <ProtectedRoute forUnAuthorized>
               <Login />
             </ProtectedRoute>
           }
@@ -50,7 +50,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute forAuthorized>
+            <ProtectedRoute forUnAuthorized>
               <Register />
             </ProtectedRoute>
           }
@@ -58,7 +58,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute forAuthorized>
+            <ProtectedRoute forUnAuthorized>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -66,7 +66,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute forAuthorized>
+            <ProtectedRoute forUnAuthorized>
               <ResetPassword />
             </ProtectedRoute>
           }
@@ -74,7 +74,7 @@ const App = () => {
         <Route
           path='/profile'
           element={
-            <ProtectedRoute forAuthorized>
+            <ProtectedRoute forUnAuthorized={false}>
               <Profile />
             </ProtectedRoute>
           }
@@ -82,7 +82,7 @@ const App = () => {
         <Route
           path='/profile/orders'
           element={
-            <ProtectedRoute forAuthorized>
+            <ProtectedRoute forUnAuthorized={false}>
               <ProfileOrders />
             </ProtectedRoute>
           }

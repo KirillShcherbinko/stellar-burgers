@@ -8,12 +8,12 @@ import { ReactNode } from 'react';
 import { Preloader } from '@ui';
 
 type ProtectedRouteProps = {
-  forAuthorized: boolean;
+  forUnAuthorized: boolean;
   children: ReactNode;
 };
 
 export const ProtectedRoute = ({
-  forAuthorized = false,
+  forUnAuthorized = true,
   children
 }: ProtectedRouteProps) => {
   const location = useLocation();
@@ -21,15 +21,15 @@ export const ProtectedRoute = ({
   const isAuthorized = useSelector(selectIsAuthorized);
   const from = location.state?.from || '/';
 
-  if (!isUserLoading) {
+  if (isUserLoading) {
     return <Preloader />;
   }
 
-  if (!forAuthorized && isAuthorized) {
+  if (forUnAuthorized && isAuthorized) {
     return <Navigate to={from} />;
   }
 
-  if (forAuthorized && !isAuthorized) {
+  if (!forUnAuthorized && !isAuthorized) {
     return <Navigate to='/login' state={{ from: location }} />;
   }
 
