@@ -10,7 +10,7 @@ type TInitialState = {
   orderError: string | null;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   isOrderLoading: false,
   orderRequest: false,
   orderModalData: null,

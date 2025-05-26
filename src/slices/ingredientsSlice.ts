@@ -8,7 +8,7 @@ type TInitialState = {
   ingredientsError: string | null;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   ingredients: [],
   isIngredientsLoading: false,
   ingredientsError: null

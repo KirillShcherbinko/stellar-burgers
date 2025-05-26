@@ -10,7 +10,7 @@ type TInitialState = {
   feedError: string | null;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   isFeedLoading: false,
   orders: [],
   total: 0,

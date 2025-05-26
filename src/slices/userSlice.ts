@@ -13,14 +13,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../utils/cookie';
 
-type TInitialState = {
+export type TInitialState = {
   isUserLoading: boolean;
   user: TUser | null;
   isAuthorized: boolean;
   userError: string | null;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   isUserLoading: false,
   user: null,
   isAuthorized: false,
