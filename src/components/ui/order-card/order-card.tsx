@@ -40,7 +40,10 @@ export const OrderCardUI: FC<OrderCardUIProps> = memo(
             return (
               <li
                 className={styles.img_wrap}
-                style={{ zIndex: zIndex, right: right }}
+                style={{
+                  zIndex: zIndex,
+                  right: right
+                }}
                 key={index}
               >
                 <img
